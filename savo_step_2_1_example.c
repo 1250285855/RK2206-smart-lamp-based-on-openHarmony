@@ -86,8 +86,8 @@ void e53_gs_process(void *arg)
 
                 // 检测到Right状态时，将GPIO0_PA2设置为LOW
 
-                LzGpioSetVal(GPIO_TEST, 0);
-                LzGpioGetVal(GPIO_TEST, &value);
+                LzGpioSetVal(GPIO0_PA2, 0);
+                LzGpioGetVal(GPIO0_PA2, &value);
                 printf("\tgpio set %d => gpio get %d\n", 0, value);
 
             }
@@ -97,8 +97,8 @@ void e53_gs_process(void *arg)
 
                 // 检测到Right状态时，将GPIO0_A2设置为HIGH
 
-                LzGpioSetVal(GPIO_TEST, 1);
-                LzGpioGetVal(GPIO_TEST, &value);
+                LzGpioSetVal(GPIO0_PA2, 1);
+                LzGpioGetVal(GPIO0_PA2, &value);
                 printf("\tgpio set %d => gpio get %d\n", 1, value);
 
             }
@@ -149,9 +149,9 @@ void e53_gs_process(void *arg)
 ***************************************************************/
 void savo_step_2_1_example()
 {
-    // unsigned int ret = LOS_OK;
-    // unsigned int thread_id;
-    // TSK_INIT_PARAM_S task = {0};
+    unsigned int ret = LOS_OK;
+    unsigned int thread_id;
+    TSK_INIT_PARAM_S task = {0};
 
     // // 创建智慧路灯案例
     // task.pfnTaskEntry = (TSK_ENTRY_FUNC)e53_isl_thread;

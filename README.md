@@ -1,7 +1,7 @@
 # 开源鸿蒙开发者大赛开发计划
 ## 项目介绍
 由于整个小凌派的项目太大，不方便全部上传到github，这里上传自己修改的代码。
-当前目录在小凌派RK2206开源项目的位置是`lockzhiner-rk2206-openharmony3.0lts/vendor/lockzhiner/rk2206/samples/`，使用的时候只需要把当前项目Clone到该目录下即可.
+当前目录在[小凌派RK2206开源项目]("https://gitee.com/Lockzhiner-Electronics/lockzhiner-rk2206-openharmony3.0lts/tree/master")的位置是`lockzhiner-rk2206-openharmony3.0lts/vendor/lockzhiner/rk2206/samples/`，使用的时候只需要把当前项目Clone到该目录下即可.
 ## 项目目录
 | 文件名 | 简介 |
 | --- | --- |
@@ -46,6 +46,8 @@ hb clean
 # 编译，加 -f 全部编译
 hb build -f
 ```
+### 固件烧写教程
+[官方教程(第8点)](https://gitee.com/Lockzhiner-Electronics/lockzhiner-rk2206-openharmony3.0lts/blob/master/vendor/lockzhiner/rk2206/README_zh.md#8烧录打印)
 ### 样例运行
 ***2022年10月8日成功运行智慧路灯样例***
 ## 第二阶段
@@ -54,3 +56,30 @@ hb build -f
 
 #### 10.16同时烧入两个样例成功
 智能手势使用成功，在串口调试时同时出现智慧路灯和智能手势的调试信息。
+
+#### 10.18修改代码
+以智能手势为基本，添加GPIO口操作.
+``` c
+if (flag & GES_LEFT)
+{
+    printf("\tLeft\n");
+
+    // 检测到Right状态时，将GPIO0_PA2设置为LOW
+
+    LzGpioSetVal(GPIO_TEST, 0);
+    LzGpioGetVal(GPIO_TEST, &value);
+    printf("\tgpio set %d => gpio get %d\n", 0, value);
+
+}
+if (flag & GES_RIGHT)
+{
+    printf("\tRight\n");
+
+    // 检测到Right状态时，将GPIO0_A2设置为HIGH
+
+    LzGpioSetVal(GPIO_TEST, 1);
+    LzGpioGetVal(GPIO_TEST, &value);
+    printf("\tgpio set %d => gpio get %d\n", 1, value);
+
+}
+```

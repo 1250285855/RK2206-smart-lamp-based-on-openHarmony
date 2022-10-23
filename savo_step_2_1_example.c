@@ -58,6 +58,10 @@ void e53_gs_process(void *arg)
     unsigned int ret = 0;
     unsigned short flag = 0;
     LzGpioValue value = LZGPIO_LEVEL_LOW;
+
+    float lum = 0;
+
+    e53_isl_init();
     
     e53_gs_init();
 
@@ -68,6 +72,24 @@ void e53_gs_process(void *arg)
     
     while (1)
     {
+
+        lum = e53_isl_read_data();
+
+        printf("luminance value is %.2f\n", lum);
+
+        if (lum < 60)
+        {
+            isl_light_set_status(ON);
+            printf("light on\n");
+        }
+        else
+        {
+            isl_light_set_status(OFF);
+            printf("light off\n");
+        }
+
+        LOS_Msleep(2000);
+
         ret = e53_gs_get_gesture_state(&flag);
         if (ret != 0)
         {
@@ -84,7 +106,7 @@ void e53_gs_process(void *arg)
             {
                 printf("\tLeft\n");
 
-                // 检测到Right状态时，将GPIO0_PA2设置为LOW
+                // 检测到Left状态时，将GPIO0_PA2设置为LOW
 
                 LzGpioSetVal(GPIO0_PA2, 0);
                 LzGpioGetVal(GPIO0_PA2, &value);

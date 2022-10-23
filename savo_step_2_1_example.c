@@ -88,7 +88,7 @@ void e53_gs_process(void *arg)
 
                 printf("luminance value is %.2f\n", lum);
 
-                if (lum < 60)
+                if (lum < 30)
                 {
                     isl_light_set_status(ON);
                     printf("light on\n");
@@ -103,7 +103,7 @@ void e53_gs_process(void *arg)
             if (flag & GES_DOWM)
             {
                 printf("\tDown\n");
-                
+
                 isl_light_set_status(OFF);
                 printf("light off\n");
             }

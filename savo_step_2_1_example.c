@@ -73,20 +73,7 @@ void e53_gs_process(void *arg)
     while (1)
     {
 
-        lum = e53_isl_read_data();
-
-        printf("luminance value is %.2f\n", lum);
-
-        if (lum < 60)
-        {
-            isl_light_set_status(ON);
-            printf("light on\n");
-        }
-        else
-        {
-            isl_light_set_status(OFF);
-            printf("light off\n");
-        }
+        
 
         LOS_Msleep(2000);
 
@@ -97,10 +84,28 @@ void e53_gs_process(void *arg)
             if (flag & GES_UP)
             {
                 printf("\tUp\n");
+                lum = e53_isl_read_data();
+
+                printf("luminance value is %.2f\n", lum);
+
+                if (lum < 60)
+                {
+                    isl_light_set_status(ON);
+                    printf("light on\n");
+                }
+                else
+                {
+                    isl_light_set_status(OFF);
+                    printf("light off\n");
+                }
+
             }
             if (flag & GES_DOWM)
             {
                 printf("\tDown\n");
+                
+                isl_light_set_status(OFF);
+                printf("light off\n");
             }
             if (flag & GES_LEFT)
             {
